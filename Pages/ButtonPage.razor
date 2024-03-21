@@ -1,0 +1,22 @@
+﻿@page "/buttons"
+
+<RadzenButton Click=@(args=>OnClick("Button with text and icon")) Text="Button" Style="width:150px" Icon="account_circle" />
+<RadzenButton Click=@(args=>OnClick("Button with text")) Text="Button" Style="width:125px" />
+<RadzenButton Click=@(args=>OnClick("Button with icon")) Style="width:100px" Icon="account_circle" />
+<RadzenButton Click=@(args=>OnClick("Button with image")) Style="width:75px" Image="images/radzen-nuget.png" ButtonStyle="ButtonStyle.Light" /> 
+<RadzenButton Click=@(args=>OnClick("Button with content")) Style="width:75px" Image="images/radzen-nuget.png" ButtonStyle="ButtonStyle.Light" />Some Text
+<RadzenImage Path="images/radzen-nuget.png" ButtonStyle="ButtonStyle.Light" Style="width:20px"/>
+<RadzenButton Disabled="true" Text="Button" Style="width:150px" />
+<RadzenButton Click=@(args=>OnClick("Secondary Button")) Text="Secondary" Style="width:150px" ButtonStyle="ButtonStyle.Secondary" />
+<RadzenButton Click=@(args=>OnClick("Success Button")) Text="Success" ButtonStyle="ButtonStyle.Success" />
+<RadzenButton Click=@(args=>OnClick("Danger Button")) Text="Danger" Style="width:150px" ButtonStyle="ButtonStyle.Danger" />
+<RadzenButton Click=@(args=>OnClick("Warning Button")) Text="Warning" ButtonStyle="ButtonStyle.Warning" />
+<br />
+    <p>@ButtonName</p>
+    @code {
+        public string ButtonName;
+        void OnClick(string buttonName)
+        {
+        ButtonName = buttonName;
+        }
+}

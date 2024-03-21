@@ -1,0 +1,26 @@
+﻿@page "/notificationpage"
+@inject NotificationService NotificationService
+
+<RadzenButton Text="show info notification" Style="width:200px" ButtonStyle="ButtonStyle.Info"
+Click=@(args=>ShowNotification(new NotificationMessage{Severity=NotificationSeverity.Info,
+Summary="Info Summary",Detail="Info Detail",Duration=4000}))/>
+
+<RadzenButton Text="show info notification" Style="width:200px" ButtonStyle="ButtonStyle.Success"
+Click=@(args=>ShowNotification(new NotificationMessage{Severity=NotificationSeverity.Success,
+Summary="Success Summary",Detail="Success Detail",Duration=4000}))/>
+
+<RadzenButton Text="show info notification" Style="width:200px" ButtonStyle="ButtonStyle.Warning"
+Click=@(args=>ShowNotification(new NotificationMessage{Severity=NotificationSeverity.Warning,
+Summary="Warning Summary",Detail="Warning Detail",Duration=4000}))/>
+
+<RadzenButton Text="show info notification" Style="width:200px" ButtonStyle="ButtonStyle.Danger"
+Click=@(args=>ShowNotification(new NotificationMessage{Severity=NotificationSeverity.Error,
+Summary="Error Summary",Detail="Error Detail",Duration=4000}))/>
+
+
+@code {
+    void ShowNotification(NotificationMessage message)
+    {
+        NotificationService.Notify(message);
+    }
+}

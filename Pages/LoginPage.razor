@@ -1,0 +1,39 @@
+﻿@page "/loginpage"
+<RadzenLogin AllowRegisters="false" AllowResetPassword="false" 
+    Login="@(args=>OnLogin(args,"Simple Login"))"/>
+    
+    <RadzenLogin AllowResetPassword="false" 
+    Login="@(args=>OnLogin(args,"login with register"))"
+    Register="@(args=>OnRegister("login with register"))"/>   
+    
+    <RadzenLogin Login="@(args=>OnLogin(args,"login with register and password reset"))"
+             ResetPassword="@(args=>OnResetPassword(args,"login with register and password reset"))"
+             Register="@(args=>OnRegister("login with register and password reset"))" />    
+             
+             <RadzenLogin AllowRegister="true" AllowResetPassword="true"
+             Username=@username Password=@password
+             Login="@(args=>OnLogin(args,"login with register and password reset"))"
+             ResetPassword="@(args=>OnResetPassword(args,"login with register and password reset"))"
+             Register="@(args=>OnRegister("login with register and password reset"))" />
+
+    <br />
+<p>@msg</p>
+@code {
+    string username = "admin";
+    string password = "pass";
+
+    string msg;
+    void OnLogin(LoginArgs args, string name)
+    {
+        msg = name + " UserName: " + args.Username + " and password " + args.Password;
+    }
+    void OnRegister(string name)
+    {
+        msg = name + "Register";
+    }
+
+    void OnResetPassword(string value,string name)
+    {
+        msg = name + " ResetPassword for user: " + value;
+    }
+}

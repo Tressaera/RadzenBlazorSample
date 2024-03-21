@@ -1,0 +1,46 @@
+﻿@page "/cascadingdropdown"
+@using RadzenBlazorSample.Models
+@using RadzenBlazorSample.Data
+@using Microsoft.EntityFrameworkCore
+@inject RadzenBlazorSample.Context.DBContext dbContext
+
+<h3>Cascading Dropdown</h3>
+
+<h3>Customers</h3>
+<RadzenDropDown TValue="string" @bind-Value="CustomerID" 
+Placeholder="Select Customer" AllowFiltering="true" 
+Data="@(customers)" TextProperty="CompanyName" ValueProperty="CustomerID" />
+<br />
+<h3>Orders</h3>
+<RadzenDropDown TValue="int" @bind-Value="OrderID" 
+Placeholder="Select Order" Data="@(orders.Where(h=>h.CustomerId==CustomerID))"
+ValueProperty="orderID">
+<Template>
+Order Date:@String.Format("{0:d}",((Order)context).OrderDate)
+</Template>
+</RadzenDropDown>
+<br />
+<h3>Order Details</h3>
+<RadzenGrid AllowFiltering="true" AllowPaging="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            Data="@(orderDetails.Where(h=>h.OrderId==OrderID))" TItem="OrderDetail" ColumnWidth="200px">
+    <Columns>
+        <RadzenGridColumn TItem="OrderDetail" Property="Product.ProductName" Title="Product" />
+        <RadzenGridColumn TItem="OrderDetail" Property="Quantity" Title="Quantity" />
+        <RadzenGridColumn TItem="OrderDetail" Property="Discount" Title="Discount" FormatString="{0:P}" />
+    </Columns>
+</RadzenGrid>
+@code {
+    IEnumerable<Customer> customers;
+    IEnumerable<Order> orders;
+    IEnumerable<OrderDetail> orderDetails;
+
+    string CustomerID;  
+    int OrderID;
+
+    protected override void OnInitialized()
+    {
+        customers = dbContext.Customers.ToList();
+        orders = dbContext.Orders.ToList();
+        orderDetails = dbContext.OrderDetails.Include("Product").ToList();
+    }
+}
